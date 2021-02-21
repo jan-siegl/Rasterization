@@ -25,7 +25,21 @@ public class ScreenManager {
         return selectedPoints;
     }
 
-    public boolean isFilledIn(Coordinate coordinate) { // TODO: Implement this
-        return false;
+    public boolean isFilledIn(Coordinate coordinate) {
+        int[][] coordinates = new int[3][2];
+        int i = 0;
+        for (Coordinate filledCoordinate : getSelectedPoints()) {
+            coordinates[i][0] = filledCoordinate.getX();
+            coordinates[i][1] = filledCoordinate.getY();
+            i++;
+        }
+        double x = (coordinate.getX() - coordinates[1][0]) * (coordinates[2][1] - coordinates[1][1]) - (coordinate.getY() - coordinates[1][1]) * (coordinates[2][0] - coordinates[1][0]);
+        double y = (coordinate.getX() - coordinates[2][0]) * (coordinates[0][1] - coordinates[2][1]) - (coordinate.getY() - coordinates[2][1]) * (coordinates[0][0] - coordinates[2][0]);
+        double z = (coordinate.getX() - coordinates[0][0]) * (coordinates[1][1] - coordinates[0][1]) - (coordinate.getY() - coordinates[0][1]) * (coordinates[1][0] - coordinates[0][0]);
+        if (x < 0 && y < 0 && z < 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
